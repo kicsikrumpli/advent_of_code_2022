@@ -40,11 +40,14 @@ def priority(item: str) -> int:
 
 if __name__ == '__main__':
     # rucksacks = parse(test_input.split("\n"))
-
     rucksacks = parse(read_file('input.txt'))
+    # this works for puzzle 1 too with different grouping
     elf_groups = [
-        left.intersection(right).intersection(middle)
-        for left, middle, right
+        functools.reduce(
+            lambda acc, elem: acc.intersection(elem),
+            group
+        )
+        for group
         in rucksacks
     ]
     print(elf_groups)
